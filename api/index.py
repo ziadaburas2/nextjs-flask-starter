@@ -2,9 +2,10 @@ from flask import Flask, request, jsonify
 import pandas as pd
 import joblib
 import os
+from flask_cors import CORS
 
 app = Flask(__name__)
-# CORS(app)
+CORS(app)
 # Load model and transformers
 MODEL_DIR = os.path.join(os.path.dirname(__file__), '../ai')
 model_path = os.path.join(MODEL_DIR, 'decision_tree_model.pkl')
@@ -45,6 +46,6 @@ def predict():
         "prediction": int(manual_prediction[0]),
         "probabilities": manual_prediction_proba[0].tolist()
     })
-# if __name__ == "__main__":
-#     port = int(os.environ.get("PORT", 5000))
-#     app.run(host="0.0.0.0", port=port)
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port)
